@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while (nbEnemies < maxEnemiesPerSpawn && gameManager.CanSpawnEnemy())
+        while (nbEnemies < maxEnemiesPerSpawn)
         {
             CreateEnemy();
             yield return new WaitForSeconds(spawnInterval); // Temps entre les spawns
@@ -32,7 +32,9 @@ public class EnemySpawner : MonoBehaviour
 
         }
         animator.SetBool("ShouldClose", true);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
+
 
 
     }

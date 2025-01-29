@@ -9,6 +9,8 @@ public class SpawnerArea : MonoBehaviour
 
     public float spawnInterval = 4f; // Temps entre les spawns
     private int alreadySpawn = 0; // Compteur d'ennemis actuels
+
+    
     void Start()
     {
         CreateSpawners();
@@ -21,6 +23,7 @@ public class SpawnerArea : MonoBehaviour
         {
             CreateSpawners();
             yield return new WaitForSeconds(spawnInterval); // Temps entre les spawns
+
 
         }
 

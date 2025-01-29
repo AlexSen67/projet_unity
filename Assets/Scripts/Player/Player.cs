@@ -2,12 +2,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private CharacterController controller;
-    public float moveSpeed = 12.0f;
+    public float moveSpeed;
     public float gravity = -9.81f * 2;
-    public float jumpHeight = 3.0f;
+    public float jumpHeight = 30.0f;
 
     public Transform groundCheck;
 
@@ -18,10 +18,13 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool isMoving;
 
+    private GameManager gameManager;
+
     private Vector3 lastPosition = new Vector3(0f, 0f, 0f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameManager = GameObject.FindFirstObjectByType<GameManager>();
         Application.targetFrameRate = 80;
         controller = GetComponent<CharacterController>();
     }
@@ -29,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moveSpeed = gameManager.GetPlayerSpeed();
         // Check if the player is on the ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
@@ -66,7 +70,9 @@ public class PlayerMovement : MonoBehaviour
             isMoving = false;
         }
         lastPosition = gameObject.transform.position;
-       
+
+        Debug.Log("Speed : " + moveSpeed);  
+
     }
     void OnTriggerEnter(Collider collision)
     {
@@ -104,5 +110,5 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    
+
 }
